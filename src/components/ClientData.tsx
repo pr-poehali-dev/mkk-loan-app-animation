@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
 
@@ -11,6 +12,7 @@ export default function ClientData() {
   const [isSaving, setIsSaving] = useState(false);
   const [data, setData] = useState({
     fullName: 'Иванов Иван Иванович',
+    gender: localStorage.getItem('user_gender') || 'male',
     birthDate: '1990-01-15',
     passport: '4512 345678',
     address: 'г. Москва, ул. Примерная, д. 1, кв. 1',
@@ -20,6 +22,7 @@ export default function ClientData() {
 
   const handleSave = () => {
     setIsSaving(true);
+    localStorage.setItem('user_gender', data.gender);
     setTimeout(() => {
       setIsSaving(false);
       setIsEditing(false);
@@ -44,8 +47,8 @@ export default function ClientData() {
       <div className="p-4 space-y-4">
         <Card className="p-6">
           <div className="flex items-center gap-4 mb-6">
-            <div className="bg-primary/10 rounded-full p-4">
-              <Icon name="User" className="w-8 h-8 text-primary" />
+            <div className="text-6xl">
+              {data.gender === 'female' ? '👩' : '👨'}
             </div>
             <div>
               <h2 className="font-semibold text-lg">{data.fullName}</h2>
@@ -62,6 +65,23 @@ export default function ClientData() {
                 disabled={!isEditing}
                 className="mt-1"
               />
+            </div>
+
+            <div>
+              <Label>Пол</Label>
+              <Select
+                value={data.gender}
+                onValueChange={(value) => setData({ ...data, gender: value })}
+                disabled={!isEditing}
+              >
+                <SelectTrigger className="mt-1">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="male">👨 Мужской</SelectItem>
+                  <SelectItem value="female">👩 Женский</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div>

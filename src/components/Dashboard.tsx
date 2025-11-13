@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import LoanApplication from './LoanApplication';
@@ -28,6 +27,8 @@ export default function Dashboard() {
   ]);
 
   const phone = localStorage.getItem('auth_phone') || '';
+  const gender = localStorage.getItem('user_gender') || 'male';
+  const avatar = gender === 'female' ? '👩' : '👨';
 
   const handleLogout = () => {
     localStorage.removeItem('auth_phone');
@@ -76,11 +77,9 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-center gap-3 mb-8">
-              <Avatar>
-                <AvatarFallback className="bg-primary text-white">
-                  {phone.slice(-2)}
-                </AvatarFallback>
-              </Avatar>
+              <div className="text-5xl">
+                {avatar}
+              </div>
               <div className="flex-1">
                 <p className="font-medium">{phone}</p>
                 <p className="text-sm text-muted-foreground">Клиент</p>
