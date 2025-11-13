@@ -6,25 +6,27 @@ export default function Download() {
   const appUrl = window.location.origin;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary to-green-600 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-accent to-secondary gradient-animate flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Card className="p-8">
+        <Card className="p-8 shadow-2xl">
           <div className="flex justify-center mb-6">
-            <div className="bg-primary/10 rounded-full p-6">
-              <Icon name="Home" className="w-16 h-16 text-primary" />
+            <div className="bg-gradient-to-br from-primary to-accent rounded-3xl p-6 shadow-xl">
+              <Icon name="Home" className="w-16 h-16 text-white" />
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-center mb-2">Деньги в Дом</h1>
-          <p className="text-center text-muted-foreground mb-8">
+          <h1 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Деньги в Дом
+          </h1>
+          <p className="text-center text-muted-foreground mb-8 text-base">
             Скачайте приложение на телефон
           </p>
 
-          <div className="bg-white border-4 border-primary rounded-2xl p-4 mb-6">
-            <div className="bg-gray-100 aspect-square rounded-lg flex items-center justify-center">
+          <div className="bg-gradient-to-br from-primary/5 to-accent/5 border-2 border-primary/20 rounded-3xl p-6 mb-6 shadow-inner">
+            <div className="bg-white aspect-square rounded-2xl flex items-center justify-center shadow-lg">
               <div className="text-center">
                 <Icon name="QrCode" className="w-32 h-32 mx-auto text-primary mb-2" />
-                <p className="text-sm text-muted-foreground">Отсканируйте QR-код</p>
+                <p className="text-sm text-muted-foreground font-medium">Отсканируйте QR-код</p>
               </div>
             </div>
           </div>

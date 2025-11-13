@@ -20,7 +20,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-primary to-green-600 flex flex-col items-center justify-center z-50 overflow-hidden">
+    <div className="fixed inset-0 bg-gradient-to-br from-primary via-accent to-secondary gradient-animate flex flex-col items-center justify-center z-50 overflow-hidden">
       {money.map((item) => (
         <div
           key={item.id}
@@ -35,16 +35,16 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       ))}
 
       <div className="relative z-10 flex flex-col items-center gap-6">
-        <div className="bg-white rounded-full p-6 shadow-2xl animate-pulse-scale">
-          <Icon name="Home" className="w-16 h-16 text-primary" />
+        <div className="bg-white rounded-3xl p-8 shadow-2xl animate-pulse-scale">
+          <Icon name="Home" className="w-20 h-20 text-primary" />
         </div>
-        <h1 className="text-4xl font-bold text-white text-center px-4">
+        <h1 className="text-5xl font-bold text-white text-center px-4 drop-shadow-lg">
           Деньги в Дом
         </h1>
-        <div className="flex gap-2">
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+        <div className="flex gap-3">
+          <div className="w-4 h-4 bg-white rounded-full animate-bounce shadow-lg" style={{ animationDelay: '0s' }}></div>
+          <div className="w-4 h-4 bg-white rounded-full animate-bounce shadow-lg" style={{ animationDelay: '0.2s' }}></div>
+          <div className="w-4 h-4 bg-white rounded-full animate-bounce shadow-lg" style={{ animationDelay: '0.4s' }}></div>
         </div>
       </div>
     </div>

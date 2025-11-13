@@ -37,17 +37,19 @@ export default function PhoneAuth({ onSuccess }: PhoneAuthProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary to-green-600 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-accent to-secondary gradient-animate flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 backdrop-blur-sm">
           <div className="flex justify-center mb-6">
-            <div className="bg-primary/10 rounded-full p-4">
-              <Icon name="Home" className="w-12 h-12 text-primary" />
+            <div className="bg-gradient-to-br from-primary to-accent rounded-2xl p-5 shadow-lg">
+              <Icon name="Home" className="w-14 h-14 text-white" />
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-center mb-2">Деньги в Дом</h1>
-          <p className="text-center text-muted-foreground mb-8">
+          <h1 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Деньги в Дом
+          </h1>
+          <p className="text-center text-muted-foreground mb-8 text-base">
             {step === 'phone' ? 'Введите номер телефона' : 'Введите код из СМС'}
           </p>
 

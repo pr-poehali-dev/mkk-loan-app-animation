@@ -48,15 +48,15 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b sticky top-0 z-40">
+    <div className="min-h-screen bg-background">
+      <header className="bg-white border-b sticky top-0 z-40 shadow-sm">
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-3">
-            <div className="bg-primary/10 rounded-full p-2">
-              <Icon name="Home" className="w-6 h-6 text-primary" />
+            <div className="bg-gradient-to-br from-primary to-accent rounded-xl p-2 shadow-md">
+              <Icon name="Home" className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="font-bold text-lg">Деньги в Дом</h1>
+              <h1 className="font-bold text-lg bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Деньги в Дом</h1>
               <p className="text-xs text-muted-foreground">{phone}</p>
             </div>
           </div>
@@ -148,17 +148,19 @@ export default function Dashboard() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsContent value="home" className="m-0">
           <div className="p-4 space-y-4">
-            <Card className="bg-gradient-to-br from-primary to-green-600 text-white p-6">
+            <Card className="bg-gradient-to-br from-primary via-accent to-secondary text-white p-6 shadow-xl border-0 gradient-animate">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">Доступный лимит</p>
-                  <h2 className="text-3xl font-bold">50 000 ₽</h2>
+                  <p className="text-white/90 text-sm mb-1 font-medium">Доступный лимит</p>
+                  <h2 className="text-4xl font-bold drop-shadow-lg">50 000 ₽</h2>
                 </div>
-                <Icon name="Wallet" className="w-12 h-12 text-white/50" />
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3">
+                  <Icon name="Wallet" className="w-12 h-12 text-white" />
+                </div>
               </div>
               <Button
                 variant="secondary"
-                className="w-full"
+                className="w-full bg-white text-primary hover:bg-white/90 font-semibold shadow-lg"
                 size="lg"
                 onClick={() => setActiveTab('new-loan')}
               >
@@ -170,14 +172,14 @@ export default function Dashboard() {
               <h3 className="font-semibold mb-3 px-1">Активные заявки</h3>
               <div className="space-y-3">
                 {loans.filter(l => l.status === 'active' || l.status === 'pending').map(loan => (
-                  <Card key={loan.id} className="p-4">
+                  <Card key={loan.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-primary">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <div className="bg-primary/10 rounded-full p-2">
-                          <Icon name="Banknote" className="w-5 h-5 text-primary" />
+                        <div className="bg-gradient-to-br from-primary to-accent rounded-xl p-2">
+                          <Icon name="Banknote" className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <p className="font-semibold">{loan.amount.toLocaleString()} ₽</p>
+                          <p className="font-semibold text-lg">{loan.amount.toLocaleString()} ₽</p>
                           <p className="text-sm text-muted-foreground">{loan.date}</p>
                         </div>
                       </div>
