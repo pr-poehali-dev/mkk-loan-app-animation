@@ -25,6 +25,8 @@ export default function Dashboard() {
     { id: '1', amount: 15000, status: 'active', date: '2024-11-01' },
     { id: '2', amount: 10000, status: 'completed', date: '2024-10-15' },
     { id: '3', amount: 20000, status: 'pending', date: '2024-11-10' },
+    { id: '4', amount: 25000, status: 'rejected', date: '2024-10-28' },
+    { id: '5', amount: 8000, status: 'rejected', date: '2024-10-20' },
   ]);
 
   const activeLoanData = {
@@ -191,34 +193,71 @@ export default function Dashboard() {
               </Button>
             </Card>
 
-            <div>
-              <h3 className="font-semibold mb-3 px-1">Активные заявки</h3>
-              <div className="space-y-3">
-                {loans.filter(l => l.status === 'active' || l.status === 'pending').map(loan => (
-                  <Card 
-                    key={loan.id} 
-                    className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-primary cursor-pointer"
-                    onClick={() => loan.status === 'active' && setActiveTab('active-loan')}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="bg-gradient-to-br from-primary to-accent rounded-xl p-2">
-                          <Icon name="Banknote" className="w-5 h-5 text-white" />
+            {loans.filter(l => l.status === 'active' || l.status === 'pending').length > 0 && (
+              <div>
+                <h3 className="font-semibold mb-3 px-1">Активные заявки</h3>
+                <div className="space-y-3">
+                  {loans.filter(l => l.status === 'active' || l.status === 'pending').map(loan => (
+                    <Card 
+                      key={loan.id} 
+                      className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-primary cursor-pointer"
+                      onClick={() => loan.status === 'active' && setActiveTab('active-loan')}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <div className="bg-gradient-to-br from-primary to-accent rounded-xl p-2">
+                            <Icon name="Banknote" className="w-5 h-5 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-semibold text-lg">{loan.amount.toLocaleString()} ₽</p>
+                            <p className="text-sm text-muted-foreground">{loan.date}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold text-lg">{loan.amount.toLocaleString()} ₽</p>
-                          <p className="text-sm text-muted-foreground">{loan.date}</p>
+                        <div className="flex items-center gap-2">
+                          {getStatusBadge(loan.status)}
+                          {loan.status === 'active' && <Icon name="ChevronRight" className="w-5 h-5 text-muted-foreground" />}
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        {getStatusBadge(loan.status)}
-                        {loan.status === 'active' && <Icon name="ChevronRight" className="w-5 h-5 text-muted-foreground" />}
-                      </div>
-                    </div>
-                  </Card>
-                ))}
+                    </Card>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {loans.filter(l => l.status === 'rejected').length > 0 && (
+              <div>
+                <h3 className="font-semibold mb-3 px-1">Отклоненные заявки</h3>
+                <div className="space-y-3">
+                  {loans.filter(l => l.status === 'rejected').map(loan => (
+                    <Card 
+                      key={loan.id} 
+                      className="p-4 border-l-4 border-l-destructive"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <div className="bg-destructive/10 rounded-xl p-2">
+                            <Icon name="XCircle" className="w-5 h-5 text-destructive" />
+                          </div>
+                          <div>
+                            <p className="font-semibold text-lg">{loan.amount.toLocaleString()} ₽</p>
+                            <p className="text-sm text-muted-foreground">{loan.date}</p>
+                          </div>
+                        </div>
+                        {getStatusBadge(loan.status)}
+                      </div>
+                      <div className="bg-destructive/5 rounded-lg p-3 mt-3">
+                        <div className="flex gap-2">
+                          <Icon name="Info" className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
+                          <p className="text-sm text-destructive">
+                            К сожалению, ваша заявка была отклонена. Вы можете подать новую заявку через 7 дней.
+                          </p>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </TabsContent>
 
