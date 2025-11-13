@@ -9,6 +9,7 @@ import LoanApplication from './LoanApplication';
 import ClientData from './ClientData';
 import LoanHistory from './LoanHistory';
 import Help from './Help';
+import ActiveLoan from './ActiveLoan';
 
 interface Loan {
   id: string;
@@ -25,6 +26,17 @@ export default function Dashboard() {
     { id: '2', amount: 10000, status: 'completed', date: '2024-10-15' },
     { id: '3', amount: 20000, status: 'pending', date: '2024-11-10' },
   ]);
+
+  const activeLoanData = {
+    id: '1',
+    amount: 15000,
+    returnAmount: 15225,
+    term: 14,
+    startDate: '2024-11-01',
+    endDate: '2024-11-29',
+    daysLeft: 7,
+    paid: 10000,
+  };
 
   const phone = localStorage.getItem('auth_phone') || '';
   const gender = localStorage.getItem('user_gender') || 'male';
@@ -102,6 +114,17 @@ export default function Dashboard() {
                 variant="ghost"
                 className="w-full justify-start"
                 onClick={() => {
+                  setActiveTab('active-loan');
+                  setShowMenu(false);
+                }}
+              >
+                <Icon name="Receipt" className="w-5 h-5 mr-3" />
+                Активный займ
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start"
+                onClick={() => {
                   setActiveTab('profile');
                   setShowMenu(false);
                 }}
@@ -172,7 +195,11 @@ export default function Dashboard() {
               <h3 className="font-semibold mb-3 px-1">Активные заявки</h3>
               <div className="space-y-3">
                 {loans.filter(l => l.status === 'active' || l.status === 'pending').map(loan => (
-                  <Card key={loan.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-primary">
+                  <Card 
+                    key={loan.id} 
+                    className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-primary cursor-pointer"
+                    onClick={() => loan.status === 'active' && setActiveTab('active-loan')}
+                  >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
                         <div className="bg-gradient-to-br from-primary to-accent rounded-xl p-2">
@@ -183,7 +210,10 @@ export default function Dashboard() {
                           <p className="text-sm text-muted-foreground">{loan.date}</p>
                         </div>
                       </div>
-                      {getStatusBadge(loan.status)}
+                      <div className="flex items-center gap-2">
+                        {getStatusBadge(loan.status)}
+                        {loan.status === 'active' && <Icon name="ChevronRight" className="w-5 h-5 text-muted-foreground" />}
+                      </div>
                     </div>
                   </Card>
                 ))}
@@ -194,6 +224,10 @@ export default function Dashboard() {
 
         <TabsContent value="new-loan" className="m-0">
           <LoanApplication onBack={() => setActiveTab('home')} />
+        </TabsContent>
+
+        <TabsContent value="active-loan" className="m-0">
+          <ActiveLoan loan={activeLoanData} />
         </TabsContent>
 
         <TabsContent value="profile" className="m-0">
